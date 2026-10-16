@@ -31,6 +31,9 @@ signals:
 
 public slots:
 
+private slots:
+    void on_pushButton_donate_clicked();
+
 };
 
 #endif // ABOUTDIALOG_H

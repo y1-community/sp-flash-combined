@@ -34,7 +34,7 @@ static int runQtApplication(int argc, char *argv[])
         TempPlcCtrl plcCtrl;
         if (plcCtrl.isExpire() == true)
         {
-            QMessageBox message(QMessageBox::Critical,"Smart Phone Flash Tool","The temp Flash Tool has expired.",QMessageBox::Ok,NULL);
+            QMessageBox message(QMessageBox::Critical,"SP Flash Tool","The temp Flash Tool has expired.",QMessageBox::Ok,NULL);
             message.exec();
 
             return 4;

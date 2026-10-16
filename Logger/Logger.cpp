@@ -27,6 +27,7 @@
 #include "../Public/Host.h"
 #include "../Logger/Log.h"
 #include "../Utility/FileUtils.h"
+#include "../Utility/IniItem.h"
 #include "../Utility/version.h"
 #include "../Utility/Utils.h"
 #include "../Host/Inc/RuntimeMemory.h"
@@ -394,21 +395,34 @@ void Logger::DebugOn() {
                 Logger::GetSPFlashToolDumpFileFolder()+ DEFAULT_LOG_FILE,
                 Logger::Verbose);
 
-#ifdef USE_QTDEBUG
-    Logger::GetLogger().AddLogHandle(&std::cout, Logger::Verbose);
-#else
-    Logger::GetLogger().AddLogHandle(&std::cout, Logger::Info);
-#endif
+    Logger::GetLogger().AddLogHandle(&std::cout, Logger::ConsoleLevel());
 
     Logger::GetLogger()<<Logger::Debug<<ToolInfo::ToString()<<std::endl;
 
+}
+
+Logger::Level Logger::ConsoleLevel()
+{
+    IniItem item("option.ini", "Log", "ConsoleLevel");
+    const int value = item.GetIntValue();
+    if(value < Logger::Verbose || value > Logger::Off)
+    {
+        return Logger::Warn;
+    }
+    return static_cast<Logger::Level>(value);
+}
+
+void Logger::SetConsoleLevel(Logger::Level level)
+{
+    IniItem item("option.ini", "Log", "ConsoleLevel");
+    item.SaveIntValue(static_cast<int>(level));
 }
 
 void Logger::DebugOff() {
     Logger::GetLogger()<<Logger::Debug<<
             "================================================================="
             "================================================================="
-            <<std::endl<<"Smart Phone Flash Tool runtime trace is OFF"<<std::endl<<
+            <<std::endl<<"SP Flash Tool runtime trace is OFF"<<std::endl<<
             "================================================================="
             "================================================================="
             <<std::endl;

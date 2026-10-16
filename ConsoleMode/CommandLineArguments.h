@@ -25,6 +25,8 @@ public:
 
     const std::string &GetComPort() const;
 
+    const std::string &GetLibflashVersion() const;
+
     bool DoRedirect() const;
 
     bool DisplayHelpInfo() const;
@@ -51,6 +53,7 @@ private:
     std::string m_szCertFilename;
     std::string m_szCommand;
     std::string m_szPort;
+    std::string m_szLibflashVersion;
     bool m_fgRedirect;
     bool m_fgDisplayHepInfo;
     bool m_onlyOutput;

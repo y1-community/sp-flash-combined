@@ -14,6 +14,7 @@
 #include "../Utility/Utils.h"
 #include "../Logger/Log.h"
 #include "SchemaValidator.h"
+#include "../Utility/LibflashVersion.h"
 #include "../XMLParser/XMLDocument.h"
 #include "../XMLParser/XMLNode.h"
 
@@ -37,6 +38,7 @@ const string CONSOLE_MODE_USAGE(
         "            format-download\n"
         "            firmware-upgrade\n"
         "  -p    specify com port(Windows Only), format is as COM4+COM6 (BROM download), COM5 (preloader download)\n"
+        "  -v    libflash version target (e.g. 5.1720); defaults to the latest installed release\n"
         "\nMiscellaneous:\n"
         "  -r    redirect debug log to parent process\n"
         "  -h    display this help and exit\n"
@@ -53,6 +55,7 @@ CommandLineArguments::CommandLineArguments()
      m_szCertFilename(),
      m_szCommand(),
      m_szPort(),
+     m_szLibflashVersion(),
      m_fgRedirect(false),
      m_fgDisplayHepInfo(false),
      m_onlyOutput(false),
@@ -95,6 +98,11 @@ const std::string &CommandLineArguments::GetComPort() const
     return m_szPort;
 }
 
+const std::string &CommandLineArguments::GetLibflashVersion() const
+{
+    return m_szLibflashVersion;
+}
+
 const std::string &CommandLineArguments::GetHelpInfo() const
 {
     return CONSOLE_MODE_USAGE;
@@ -118,7 +126,7 @@ bool CommandLineArguments::Parse(int argc, char **argv)
 
     while (1)
     {
-        int c = getopt(argc, argv, "i:d:c:s:p:rhb");
+        int c = getopt(argc, argv, "i:d:c:s:p:rhbv:");
 
         if (c == -1)
         {
@@ -157,6 +165,10 @@ bool CommandLineArguments::Parse(int argc, char **argv)
 
             case 'p':
                 m_szPort = optarg;
+                break;
+
+            case 'v':
+                m_szLibflashVersion = optarg;
                 break;
 
             case 'h':
@@ -231,6 +243,14 @@ bool CommandLineArguments::Parse(int argc, char **argv)
                     return false;
                 }
                 m_szPort = argv[i];
+                break;
+
+            case 'v':
+                if (++i >= argc)
+                {
+                    return false;
+                }
+                m_szLibflashVersion = argv[i];
                 break;
 
             case 'h':
@@ -336,6 +356,15 @@ bool CommandLineArguments::Validate()
         }
         if (p1 <=0)
         {
+            return false;
+        }
+    }
+
+    if(!this->m_szLibflashVersion.empty())
+    {
+        if(!LibflashVersionTarget::resolve(m_szLibflashVersion).isValid())
+        {
+            LOGE("libflash version \"%s\" is not installed.", m_szLibflashVersion.c_str());
             return false;
         }
     }

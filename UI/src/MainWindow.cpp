@@ -156,6 +156,23 @@ void MainWindow::CreateWidget()
     }
 
     ui->tabWidget->setCurrentWidget(download_widget);
+
+    if(ToolInfo::UsesReplacementEngine())
+    {
+        // No libflash on this build, so every flashing tab would be a dead
+        // action. Disable the engine tabs; the engine-free Welcome tab
+        // stays enabled. The widgets and their logic are untouched.
+        for(std::list<TabWidgetBase*>::const_iterator it = tab_widgets.begin();
+            it != tab_widgets.end(); ++it)
+        {
+            if(*it != welcome_widget)
+            {
+                (*it)->SetTabEnabled(false);
+                ui->tabWidget->setTabEnabled(ui->tabWidget->indexOf(*it), false);
+            }
+        }
+        ui->tabWidget->setCurrentWidget(welcome_widget);
+    }
 }
 
 void MainWindow::CreateConnect()

@@ -2,7 +2,7 @@
 namespace ConsoleMode
 {
 
-GeneralArg::GeneralArg():da_file(),scatter_file(),auth_file(),cert_file(),chip_name(),storage_type(HW_STORAGE_NONE){}
+GeneralArg::GeneralArg():da_file(),scatter_file(),auth_file(),cert_file(),libflash_version(),chip_name(),storage_type(HW_STORAGE_NONE){}
 
 GeneralArg::GeneralArg(const GeneralArg& arg)
 {
@@ -10,6 +10,7 @@ GeneralArg::GeneralArg(const GeneralArg& arg)
     this->scatter_file = arg.scatter_file;
     this->auth_file = arg.auth_file;
     this->cert_file = arg.cert_file;
+    this->libflash_version = arg.libflash_version;
     this->chip_name = arg.chip_name;
     this->storage_type = arg.storage_type;
     this->rom_list = arg.rom_list;
@@ -33,6 +34,7 @@ GeneralArg& GeneralArg::operator=(const GeneralArg& arg)
     this->scatter_file = arg.scatter_file;
     this->auth_file = arg.auth_file;
     this->cert_file = arg.cert_file;
+    this->libflash_version = arg.libflash_version;
     this->chip_name = arg.chip_name;
     this->storage_type = arg.storage_type;
     this->rom_list = arg.rom_list;

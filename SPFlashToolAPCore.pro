@@ -134,6 +134,8 @@ SOURCES += \
     UI/src/OTPWriteDialog.cpp \
     UI/src/OTPReadDialog.cpp \
     Utility/version.cpp \
+    Utility/Theme.cpp \
+    Utility/LibflashVersion.cpp \
     Arg/WriteMemoryArg.cpp \
     UI/src/OkDialog.cpp \
     UI/src/FormatWidget.cpp \
@@ -335,6 +337,8 @@ HEADERS += \
     Setting/OTPSetting.h \
     UI/src/OTPReadDialog.h \
     Utility/version.h \
+    Utility/Theme.h \
+    Utility/LibflashVersion.h \
     UI/src/OTPWriteDialog.h \
     UI/src/OkDialog.h \
     UI/src/FormatWidget.h \

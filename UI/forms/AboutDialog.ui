@@ -13,7 +13,7 @@
     <x>0</x>
     <y>0</y>
     <width>406</width>
-    <height>374</height>
+    <height>496</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -23,7 +23,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>About Smart Phone Flash Tool</string>
+   <string>About SP Flash Tool</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../icon.qrc">
@@ -155,6 +155,33 @@
        <widget class="QLabel" name="label_copyright">
         <property name="text">
          <string>Copyright (c) 2001-2017, MediaTek Inc. All rights reserved.</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_poweredBy">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="label_donate">
+        <property name="text">
+         <string>If you found this tool helpful, and it helped you get your device back up and running, I&apos;d really appreciate it if you would buy me a coffee.</string>
+        </property>
+        <property name="wordWrap">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="pushButton_donate">
+        <property name="text">
+         <string>Buy me a coffee</string>
         </property>
        </widget>
       </item>

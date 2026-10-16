@@ -101,6 +101,9 @@ private:
 
     void UpdateUIStatus();
 
+    void refreshLibflashVersionCombo();
+    std::string versionTarget() const;
+
     MainWindow *main_window_;
     Ui::DownloadWidget *ui_;
 
@@ -111,6 +114,7 @@ private:
 
     HW_StorageType_E storage_;
     bool bUpdateScene;
+    bool version_picked_;  // explicit Version-combo pick; unset means latest.
     QString default_da;
     std::list<IScatterObj *> observers;
     int mStopFlag;
@@ -150,6 +154,7 @@ private slots:
     void on_pushButton_CertFile_clicked();
     void on_pushButton_authFile_clicked();
     void on_comboBox_Scene_activated(int index);
+    void on_comboBox_libflashVersion_activated(int index);
     void on_toolButton_Certification_clicked();
     void on_downloadTableWidget_itemChanged(QTableWidgetItem *item);
     void on_checkbox_set_boot_mode_to_meta_clicked();

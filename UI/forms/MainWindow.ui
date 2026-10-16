@@ -14,7 +14,7 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Smart Phone Flash Tool</string>
+   <string>SP Flash Tool</string>
   </property>
   <property name="windowIcon">
    <iconset resource="../icon.qrc">

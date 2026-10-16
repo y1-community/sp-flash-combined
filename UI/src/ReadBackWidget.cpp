@@ -12,6 +12,7 @@
 #include "../../Utility/Utils.h"
 #include "../../Utility/constString.h"
 #include "../../Utility/IniItem.h"
+#include "../../Utility/Theme.h"
 
 #include <QCheckBox>
 #include <QtGlobal>
@@ -45,7 +46,10 @@ ReadBackWidget::ReadBackWidget(QTabWidget *parent, MainWindow *window) :
 
     ui_->setupUi(this);
 
-    setStyleSheet("QHeaderView::section {background-color:rgba(170,170,255, 50%);}");
+    if(!Theme::IsDarkActive())
+    {
+        setStyleSheet("QHeaderView::section {background-color:rgba(170,170,255, 50%);}");
+    }
 
     read_flag_map_["PageSpare"] = NUTL_READ_PAGE_SPARE;
     read_flag_map_["PageOnly"] = NUTL_READ_PAGE_ONLY;

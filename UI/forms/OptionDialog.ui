@@ -226,7 +226,26 @@
              <property name="styleSheet">
               <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
+margin:0 0 0 0;</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_darkMode">
+           <item>
+            <widget class="QLabel" name="label_darkMode">
+             <property name="text">
+              <string>Dark mode:</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QComboBox" name="comboBoxDarkMode">
+             <property name="styleSheet">
+              <string notr="true">border: 1px solid rgb(95,95,95);
+border-radius: 3px;
 margin:0 0 0 0;</string>
              </property>
             </widget>
@@ -1211,7 +1230,6 @@ margin:0 0 0 0;</string>
         <property name="styleSheet">
          <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
 margin:0 0 0 0;</string>
         </property>
         <item>
@@ -1409,7 +1427,6 @@ margin:0 0 0 0;</string>
                   <property name="styleSheet">
                    <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
 margin:0 0 0 0;</string>
                   </property>
                  </widget>
@@ -1457,7 +1474,6 @@ margin:0 0 0 0;</string>
             <property name="styleSheet">
              <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
 margin:0 0 0 0;</string>
             </property>
            </widget>
@@ -1522,7 +1538,6 @@ margin:0 0 0 0;</string>
                       <property name="styleSheet">
                        <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
 margin:0 0 0 0;</string>
                       </property>
                      </widget>
@@ -1532,7 +1547,6 @@ margin:0 0 0 0;</string>
                       <property name="styleSheet">
                        <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
 margin:0 0 0 0;</string>
                       </property>
                       <property name="currentIndex">
@@ -1659,7 +1673,6 @@ margin:0 0 0 0;</string>
                     <property name="styleSheet">
                      <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
 margin:0 0 0 0;</string>
                     </property>
                     <property name="currentIndex">

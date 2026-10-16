@@ -1,4 +1,6 @@
 #include "FlashToolApp.h"
+#include "Utility/Theme.h"
+#include "Utility/version.h"
 #include "Err/Exception.h"
 #include "Logger/Log.h"
 #include <iostream>
@@ -6,6 +8,12 @@
 FlashToolApp::FlashToolApp(int &argc, char **argv) :
     QApplication(argc, argv)
 {
+    // Names the app menu on macOS and every surface that asks Qt for the
+    // application name. All QSettings in the tree use explicit file paths,
+    // so this changes no stored settings location.
+    setApplicationName(QString::fromStdString(ToolInfo::DisplayName()));
+    // Dark mode follows the OS unless the Appearance page overrides it.
+    Theme::ApplySaved(this);
 }
 
 bool FlashToolApp::notify(QObject *receiver, QEvent *e)

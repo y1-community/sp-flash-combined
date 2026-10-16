@@ -10,6 +10,8 @@
 #include "../../Utility/USBCOMFinderWrapper.h"
 #include "../../Utility/constString.h"
 #include "../../Utility/IniItem.h"
+#include "../../Utility/Theme.h"
+#include <QApplication>
 #include "../../Conn/Connection.h"
 #include "../../BootRom/DOWNLOAD.H"
 #include "../../BootRom/internal_api.h"
@@ -170,6 +172,8 @@ OptionDialog::OptionDialog(QWidget *parent, MainWindow *mainWindow) :
     ui->lineEdit_logPath->setText(QString::fromLocal8Bit(Logger::GetSPFlashToolLogFolder().c_str()));
 
     InitThemeItems();
+
+    InitDarkModeItems();
 
     InitKeyMapInfo();
 
@@ -918,6 +922,29 @@ void OptionDialog::InitThemeItems()
     ui->comboBoxTheme->addItems(itemList);
 
     ui->comboBoxTheme->setCurrentIndex(0);
+}
+
+void OptionDialog::InitDarkModeItems()
+{
+    ui->comboBoxDarkMode->addItems(
+        QStringList() << "Follow system" << "Light" << "Dark");
+    ui->comboBoxDarkMode->setCurrentIndex(
+        static_cast<int>(Theme::LoadChoice()));
+}
+
+void OptionDialog::on_comboBoxDarkMode_activated(int index)
+{
+    Theme::Mode mode = Theme::FollowSystem;
+    if(index == Theme::Light)
+    {
+        mode = Theme::Light;
+    }
+    else if(index == Theme::Dark)
+    {
+        mode = Theme::Dark;
+    }
+    Theme::SaveChoice(mode);
+    Theme::ApplySaved(qobject_cast<QApplication *>(QApplication::instance()));
 }
 
 void OptionDialog::ShowCustomThemeSetting(bool show)

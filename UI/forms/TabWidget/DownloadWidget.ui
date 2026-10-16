@@ -248,7 +248,6 @@
             </property>
             <property name="styleSheet">
              <string notr="true">border: 1px solid rgb(95,95,95);
-color: rgb(0, 0, 0);
 border-radius: 3px;
 margin:0 0 0 0;</string>
             </property>
@@ -419,7 +418,24 @@ margin:0 0 0 0;</string>
           <property name="styleSheet">
            <string notr="true">border: 1px solid rgb(95,95,95);
 border-radius: 3px;
-color: rgb(0, 0, 0);
+margin:0 0 0 0;</string>
+          </property>
+          <property name="currentIndex">
+           <number>-1</number>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox_libflashVersion">
+          <property name="minimumSize">
+           <size>
+            <width>141</width>
+            <height>0</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true">border: 1px solid rgb(95,95,95);
+border-radius: 3px;
 margin:0 0 0 0;</string>
           </property>
           <property name="currentIndex">

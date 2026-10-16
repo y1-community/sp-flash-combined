@@ -1,4 +1,5 @@
 #include "CheckHeader.h"
+#include "../../Utility/Theme.h"
 
 CheckHeader::CheckHeader(Qt::Orientation orientation, QWidget *parent) :
     QHeaderView(orientation, parent),
@@ -7,7 +8,10 @@ CheckHeader::CheckHeader(Qt::Orientation orientation, QWidget *parent) :
     setClickable(true);
     setStretchLastSection(true);
 
-    setStyleSheet("QHeaderView::section {background-color:rgba(170,170,255, 50%);}");
+    if(!Theme::IsDarkActive())
+    {
+        setStyleSheet("QHeaderView::section {background-color:rgba(170,170,255, 50%);}");
+    }
 }
 
 void CheckHeader::SetChecked(bool checked)

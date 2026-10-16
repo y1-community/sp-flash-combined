@@ -1,4 +1,5 @@
 #include "GeneralSetting.h"
+#include "../Utility/LibflashVersion.h"
 #include "../Conn/Connection.h"
 #include "../Utility/FileUtils.h"
 #include "../Setting/ConnBromUSBSetting.h"
@@ -69,6 +70,12 @@ void GeneralSetting::vSetArgs(const CommandLineArguments& args)
     if(!port.empty())
     {
         m_pclConnSetting->set_com_port(args.GetComPort());
+    }
+
+    if(!args.GetLibflashVersion().empty())
+    {
+        m_pclArg->libflash_version =
+            LibflashVersionTarget::resolveToString(args.GetLibflashVersion());
     }
 
 }

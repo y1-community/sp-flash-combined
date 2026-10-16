@@ -28,6 +28,7 @@ public:
     std::string scatter_file;
     std::string auth_file;
     std::string cert_file;
+    std::string libflash_version;
     std::string chip_name;
     HW_StorageType_E storage_type;
     std::list<RomItem> rom_list;

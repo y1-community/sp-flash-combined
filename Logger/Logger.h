@@ -77,6 +77,12 @@ public:
     static Logger& GetLogger();
     static void DebugOn();
     static void DebugOff();
+    // Console (stdout) verbosity, persisted as option.ini [Log]
+    // ConsoleLevel. Absent or out of range means Warn; the dump file
+    // handle always stays Verbose. A future options surface calls
+    // SetConsoleLevel; hand-editing the ini works too.
+    static Level ConsoleLevel();
+    static void SetConsoleLevel(Level level);
 };
 
 class LogFunc{

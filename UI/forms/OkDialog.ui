@@ -9,21 +9,9 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>229</width>
-    <height>148</height>
+    <width>280</width>
+    <height>260</height>
    </rect>
-  </property>
-  <property name="sizePolicy">
-   <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-    <horstretch>0</horstretch>
-    <verstretch>0</verstretch>
-   </sizepolicy>
-  </property>
-  <property name="maximumSize">
-   <size>
-    <width>229</width>
-    <height>148</height>
-   </size>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -32,8 +20,40 @@
    <string notr="true">background-image: url(:/images/ok.png);
 background-color: rgb(85, 255, 255);
 background-repeat:no-repeat;
-background-position:center;</string>
+background-position:center top;</string>
   </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>110</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_donate">
+     <property name="text">
+      <string>If you found this tool helpful, and it helped you get your device back up and running, I&apos;d really appreciate it if you would buy me a coffee: ko-fi.com/teamslide</string>
+     </property>
+     <property name="wordWrap">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="checkBox_dontAsk">
+     <property name="text">
+      <string>Don&apos;t ask me again</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
  </widget>
  <resources/>
  <connections/>

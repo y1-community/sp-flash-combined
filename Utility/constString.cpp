@@ -1,5 +1,7 @@
 
 #include "constString.h"
+#include "version.h"
+#include <string>
 #include <QTextCodec>
 #include <QObject>
 
@@ -103,8 +105,8 @@ QString strEngVec[] = {
     QObject::tr("Please select readback folder before readback."),
     QObject::tr("Please select restore folder before restore!"),
     QObject::tr("Please check the load image file is correct or not?"),
-    QObject::tr("Smart Phone Flash Tool"),
-    QObject::tr("About Smart Phone Flash Tool"),
+    QString::fromStdString(ToolInfo::DisplayName()),
+    QString::fromStdString("About " + ToolInfo::DisplayName()),
     QObject::tr("DA and Library Info"),
     QObject::tr("Copyright (c) 2001-2017, MediaTek Inc. All rights reserved."),
     QObject::tr("Comment: [Customer Release] "),

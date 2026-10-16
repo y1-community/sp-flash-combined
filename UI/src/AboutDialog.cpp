@@ -1,5 +1,7 @@
 #include "AboutDialog.h"
 #include "ui_AboutDialog.h"
+#include <QDesktopServices>
+#include <QUrl>
 #include "MainWindow.h"
 #include "MainController.h"
 
@@ -35,7 +37,7 @@ AboutDialog::~AboutDialog()
 void AboutDialog::UpdateVersionInfo()
 {
     //tool version info
-    ui->label_title->setText(ToolInfo::ToolName().c_str());
+    ui->label_title->setText(QString::fromStdString(ToolInfo::AboutName()));
 
     if(ToolInfo::IsCustomerVer())
         ui->label_comment->setText(LoadQString(main_window->GetLanguageTag(), IDS_STRING_CUSTOM_RELEASE) + ToolInfo::Comments().c_str());
@@ -57,20 +59,46 @@ void AboutDialog::UpdateVersionInfo()
         ui->label_DA_Build_Date->setText("");
     }
 
-    //library version info
-    const char *p_version      = NULL;
-    const char *p_release_type = NULL;
-    const char *p_build_date   = NULL;
+    //library version info: no libflash exists where the replacement
+    //engine runs, so name no binary there.
+    if(ToolInfo::UsesReplacementEngine())
+    {
+        ui->label_Brom->setText("");
+        ui->label_Brom_Release_Type->setText("");
+        ui->label_Brom_Build_Date->setText("");
+    }
+    else
+    {
+        const char *p_version      = NULL;
+        const char *p_release_type = NULL;
+        const char *p_build_date   = NULL;
 
-    Brom_GetDLLInfo(&p_version,&p_release_type,&p_build_date,NULL);
-    ui->label_Brom->setText(QString().sprintf("libflashtool.so v%s",p_version));
-    ui->label_Brom_Release_Type->setText(p_release_type);
-    ui->label_Brom_Build_Date->setText(LoadQString(main_window->GetLanguageTag(), IDS_STRING_BUILD_DATE) + QString().sprintf("%s", p_build_date));
+        Brom_GetDLLInfo(&p_version,&p_release_type,&p_build_date,NULL);
+        ui->label_Brom->setText(QString().sprintf("libflashtool.so v%s",p_version));
+        ui->label_Brom_Release_Type->setText(p_release_type);
+        ui->label_Brom_Build_Date->setText(LoadQString(main_window->GetLanguageTag(), IDS_STRING_BUILD_DATE) + QString().sprintf("%s", p_build_date));
+    }
+}
+
+void AboutDialog::on_pushButton_donate_clicked()
+{
+    QDesktopServices::openUrl(QUrl(QString::fromStdString(ToolInfo::DonateUrl())));
 }
 
 void AboutDialog::UpdateUI()
 {
     UpdateVersionInfo();
+
+    if(ToolInfo::UsesReplacementEngine())
+    {
+        ui->label_poweredBy->setText(
+            QString::fromStdString(ToolInfo::EngineCredit()));
+        ui->label_poweredBy->setOpenExternalLinks(true);
+    }
+    else
+    {
+        ui->label_poweredBy->setVisible(false);
+    }
 
     setWindowTitle(LoadQString(main_window->GetLanguageTag(), IDS_STRING_ABOUT_TOOL));
     ui->groupBox_DA_and_DLL_Info->setTitle(LoadQString(main_window->GetLanguageTag(), IDS_STRING_DA_INFO));

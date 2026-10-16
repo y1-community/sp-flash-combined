@@ -99,6 +99,7 @@ private:
     void ReInitItems();
     void RegisterDevicePlugNotification();
     void InitThemeItems();
+    void InitDarkModeItems();
     void ShowCustomThemeSetting(bool show);
     void AdjustTime();
     void InitShortKeyTable();
@@ -136,6 +137,8 @@ private slots:
     void on_pushButton_browser_clicked();
 
     void on_comboBoxTheme_currentIndexChanged(int index);
+
+    void on_comboBoxDarkMode_activated(int index);
 
     void on_checkBox_ShowWelcome_clicked();
 

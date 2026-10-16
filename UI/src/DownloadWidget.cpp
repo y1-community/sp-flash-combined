@@ -10,6 +10,7 @@
 #include "../../Utility/IniItem.h"
 #include "../../Host/Inc/RuntimeMemory.h"
 #include "../../Utility/version.h"
+#include "../../Utility/LibflashVersion.h"
 
 #include <QtDebug>
 #include <QtGui>
@@ -24,7 +25,8 @@ DownloadWidget::DownloadWidget(QTabWidget *parent, MainWindow *window) :
     scene_(DOWNLOAD_ONLY),
     header_(new CheckHeader(Qt::Horizontal, this)),
     storage_(HW_STORAGE_EMMC),
-    bUpdateScene(false)
+    bUpdateScene(false),
+    version_picked_(false)
 {
     ui_->setupUi(this);
     ui_->label_authFile->hide();
@@ -61,6 +63,17 @@ DownloadWidget::DownloadWidget(QTabWidget *parent, MainWindow *window) :
     ui_->comboBox_Scene->addItems(sceneList);
 
     ui_->comboBox_Scene->setCurrentIndex(DOWNLOAD_ONLY);
+
+    if(ToolInfo::UsesReplacementEngine())
+    {
+        // No libflash here, so no version to pick. Left unpopulated the
+        // combo stays empty and versionTarget() keeps returning empty.
+        ui_->comboBox_libflashVersion->hide();
+    }
+    else
+    {
+        refreshLibflashVersionCombo();
+    }
 
     //LoadDefaultDA();
 
@@ -1060,6 +1073,8 @@ void DownloadWidget::BuildGeneralSetting(
     arg->auth_file=ui_->comboBox_authFilePath->currentText().toUtf8().constData();
     arg->cert_file=ui_->lineEdit_certFilePath->text().toUtf8().constData();
 
+    arg->libflash_version = versionTarget();
+
     std::list<ConsoleMode::RomItem> items;
 
     std::list<ImageInfo> image_list;
@@ -1247,6 +1262,40 @@ void DownloadWidget::choose_rom_file(int row, int column)
                 new SimpleCallback<DownloadWidget>(this,&DownloadWidget::OnLoadRomFailed));
         }
     }
+}
+
+void DownloadWidget::on_comboBox_libflashVersion_activated(int index)
+{
+    Q_UNUSED(index);
+    version_picked_ = true;
+}
+
+void DownloadWidget::refreshLibflashVersionCombo()
+{
+    // Installed libflash releases, highest first and selected: the default
+    // target is the latest without the user picking anything.
+    ui_->comboBox_libflashVersion->clear();
+    const std::vector<LibflashVersion> versions =
+        LibflashVersionTarget::availableVersions();
+    for(std::vector<LibflashVersion>::const_iterator it = versions.begin();
+        it != versions.end(); ++it)
+    {
+        ui_->comboBox_libflashVersion->addItem(it->toString().c_str());
+    }
+    if(ui_->comboBox_libflashVersion->count() > 0)
+    {
+        ui_->comboBox_libflashVersion->setCurrentIndex(0);
+    }
+}
+
+std::string DownloadWidget::versionTarget() const
+{
+    if(!version_picked_ || ui_->comboBox_libflashVersion->count() <= 0)
+    {
+        return std::string();
+    }
+    return LibflashVersionTarget::resolveToString(
+        ui_->comboBox_libflashVersion->currentText().toUtf8().constData());
 }
 
 void DownloadWidget::on_comboBox_Scene_activated(int index)

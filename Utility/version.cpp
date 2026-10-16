@@ -17,6 +17,7 @@
 #endif
 #include <sstream>
 #include <errno.h>
+#include <QtGlobal>
 #include "../Utility/FileUtils.h"
 
 using std::string;
@@ -41,7 +42,9 @@ static const unsigned int  REVISION_NUM     = 0x379103;
 static const char* const   BUILD_DATE       = "2017/05/23 23:39";
 static const char* const   COMMENTS         = "N/A";
 
-static const char* const   APP_NAME         = "MediaTek SP Flash Tool";
+static const char* const   APP_NAME         = "SP Flash Tool";
+static const char* const   ABOUT_NAME       = "SP Flash Tool V5/V6 Combined by Ryan Specter";
+static const char* const   DONATE_URL       = "https://ko-fi.com/teamslide";
 static const char* const   PROC_NAME        = "flash_tool.exe";
 
 //*****************************************************************
@@ -99,6 +102,39 @@ std::string ToolInfo::ToString() {
         "Comment: ").append(COMMENTS).append("\n").append(
             "Load Path: ").append(LoadPath()) .append(
         "\n==================================================================================================================================\n");
+}
+
+std::string ToolInfo::DisplayName()
+{
+    return std::string(APP_NAME);
+}
+
+std::string ToolInfo::AboutName()
+{
+    return std::string(ABOUT_NAME);
+}
+
+std::string ToolInfo::DonateUrl()
+{
+    return std::string(DONATE_URL);
+}
+
+bool ToolInfo::UsesReplacementEngine()
+{
+#if defined(Q_OS_MAC) || defined(__aarch64__) || defined(__arm64__) || defined(_M_ARM64)
+    return true;
+#else
+    return false;
+#endif
+}
+
+std::string ToolInfo::EngineCredit()
+{
+    return std::string("Powered by "
+        "<a href=\"https://github.com/bkerler/mtkclient\">mtkclient</a>"
+        " by Bjoern Kerler and "
+        "<a href=\"https://github.com/shomykohai/penumbra\">Penumbra (Antumbra CLI)</a>"
+        " by Shomy instead of libflash.");
 }
 
 std::string ToolInfo::VersionNum()
